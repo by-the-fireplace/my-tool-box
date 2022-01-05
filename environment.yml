@@ -1,0 +1,6 @@
+name: my-tool-box
+dependencies:
+  - numpy
+  - pandas
+  - matplotlib
+  - scikit-learn
