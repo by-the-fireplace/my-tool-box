@@ -1,17 +1,13 @@
-# Implement kNN algorithm from scratch
+"""
+Implement kNN algorithm from scratch
+"""
 from collections import defaultdict
-from typing import Any, Dict, List, Tuple
+from typing import Any, List, Tuple
 
 import numpy as np
 from numpy import ndarray
 
 from my_toolbox.mathematics.distance import euclidean_distance
-from my_toolbox.ml.gen_data import sample_class, simple_2d
-
-import logging
-
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
 
 
 def count_class(idx_class_pair: List[Any]) -> List[Tuple[Any, int]]:
@@ -28,7 +24,7 @@ def count_class(idx_class_pair: List[Any]) -> List[Tuple[Any, int]]:
     return [(k, v) for k, v in res.items()]
 
 
-class HomemadeKNNClassifier:
+class HomemadeKNN:
     def __init__(self, k: int = 3) -> None:
         self.k = k
 
@@ -50,7 +46,7 @@ class HomemadeKNNClassifier:
         3. Get top k nearest data
         4. Vote and find the most major class
         """
-        y_pred = []
+        self.y_pred = []
         for te in x_test:
             # Calculate distances
             # Use index as hashkeys
@@ -59,16 +55,13 @@ class HomemadeKNNClassifier:
             )
             # Sort distances
             distances.sort(key=lambda x: x[1])
-            logger.info("distances", distances)
             # Get top k classes
             top_k = distances[: self.k]
             top_k_class = [self.y_train[idx] for idx, _ in top_k]
 
             # Count and find major class
             class_count = count_class(top_k_class)
-            logger.info("top_k_class", top_k_class)
-            logger.info("class_count", class_count)
             sorted_class_l = sorted(class_count, reverse=True, key=lambda x: x[1])
 
-            y_pred.append(sorted_class_l[0][0])
-        return np.array(y_pred)
+            self.y_pred.append(sorted_class_l[0][0])
+        return np.array(self.y_pred)
