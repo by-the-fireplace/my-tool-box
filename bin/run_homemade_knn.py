@@ -6,6 +6,8 @@ import matplotlib.pyplot as plt
 
 
 def main() -> None:
+
+    print("On fake dataset:")
     x_train = simple_2d(num_data=20, num_features=2, low=0, high=10)
     y_train = sample_class(size=20, pool=["a", "b", "c", "d"])
     x_test = simple_2d(num_data=5, num_features=2, low=0, high=10)
