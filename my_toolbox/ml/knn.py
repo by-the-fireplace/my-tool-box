@@ -27,6 +27,7 @@ def count_class(idx_class_pair: List[Any]) -> List[Tuple[Any, int]]:
 class HomemadeKNN:
     def __init__(self, k: int = 3) -> None:
         self.k = k
+        self.y_pred = []
 
     def fit(self, x_train: ndarray, y_train: ndarray) -> None:
         """
@@ -46,7 +47,7 @@ class HomemadeKNN:
         3. Get top k nearest data
         4. Vote and find the most major class
         """
-        self.y_pred = []
+
         for te in x_test:
             # Calculate distances
             # Use index as hashkeys

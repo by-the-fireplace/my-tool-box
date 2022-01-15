@@ -54,7 +54,9 @@ class HomemadeKmeans:
                 np.abs(
                     [
                         np.array(cur_cntr) - np.array(prv_cntr)
-                        for cur_cntr, prv_cntr in zip(self.centroids, prev_centroids)
+                        for cur_cntr, prv_cntr in zip(
+                            self.centroids, prev_centroids
+                        )
                     ]
                 )
             )
@@ -65,7 +67,9 @@ class HomemadeKmeans:
             self._maximization()
         return self.clusters
 
-    def _pick_init_centroids(self, method: Optional[str] = None) -> List[float or int]:
+    def _pick_init_centroids(
+        self, method: Optional[str] = None
+    ) -> List[float or int]:
         """
         Pick starting centroids. If no method is specified, just randomly pick
         3 points
@@ -85,7 +89,9 @@ class HomemadeKmeans:
         self.clusters = defaultdict(list)
         for x_tr in self.x_train:
             assigned_centroid_idx = np.argmin(
-                np.array([euclidean_distance(x_tr, cntr) for cntr in self.centroids])
+                np.array(
+                    [euclidean_distance(x_tr, cntr) for cntr in self.centroids]
+                )
             )
             self.clusters[assigned_centroid_idx].append(tuple(x_tr))
 
@@ -94,5 +100,6 @@ class HomemadeKmeans:
         Find new centroids
         """
         self.centroids = [
-            tuple(np.mean(points, axis=0)) for _, points in self.clusters.items()
+            tuple(np.mean(points, axis=0))
+            for _, points in self.clusters.items()
         ]
